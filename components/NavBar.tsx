@@ -1,6 +1,7 @@
 'use client';
 import { Logo2, NavLogo } from "@/public";
 import Image from "next/image";
+import { usePathname } from 'next/navigation';
 import Link from "next/link";
 import { BsSearch } from "react-icons/bs";
 import { HiMenuAlt1 } from "react-icons/hi";
@@ -8,13 +9,13 @@ import { RxCross2 } from "react-icons/rx";
 import { FC, useEffect, useRef, useState } from "react";
 import { nav } from "@/constants";
 import ThemeButton from "./ThemeButton";
-import { useScroll } from "framer-motion";
+
 
 
 
 const NavBar: FC = () => {
   const [menu, setMenu] = useState<boolean>(false);
-
+  const pathname = usePathname();
 
   const handleMobileMenu = () => {
     setMenu(!menu);
@@ -45,8 +46,9 @@ const NavBar: FC = () => {
         {/* pagelink */}
         <ul className="lg:flex lg:justify-between lg:items-center  hidden">
           {nav?.map((n) => {
+            const isActive =pathname ===n.pageLink
             return (
-              <Link href={n.pageLink} key={n.id}>
+              <Link className={isActive ? "text-[#df368b]  font-psemibold": ""} href={n.pageLink} key={n.id}>
                 <li className=" cursor-pointer">{n.name}</li>
               </Link>
             );
